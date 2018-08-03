@@ -1,0 +1,45 @@
+<br>
+<div class="float-left">
+  <%= link_to 'New Company', new_company_path, class: 'btn btn-sm btn-success' %>
+</div>
+<div class="table-responsive">
+  <table id="companies" class="table table-hover table-striped"
+        data-toggle="table"
+        data-sort-name="id"
+        data-sort-order="asc"
+        data-pagination="true"
+        data-page-list = "[8, 25, 50, 100, 200]"
+        data-page-size="8"
+        data-query-params-type="Else"
+        data-show-toggle="true"
+        data-show-columns="true"
+        data-show-export="true"
+        data-filter-control="true"
+        data-search="true">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Office location</th>
+        <th>Phone Number</th>
+        <th>User</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @companies.each do |company| %>
+        <tr>
+          <td><%= company.name %></td>
+          <td><%= company.office_location %></td>
+          <td><%= company.phone_number %></td>
+          <td><%= company.user.email %></td>
+          <td>
+            <%= link_to 'Show', company, class: 'btn btn-sm btn-default' %>
+            <%= link_to 'Edit', edit_company_path(company), class: 'btn btn-sm btn-success' %>
+            <%= link_to 'Destroy', company, class: 'btn btn-sm btn-default', method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

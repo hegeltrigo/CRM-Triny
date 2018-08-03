@@ -1,0 +1,16 @@
+<div class="body-section">
+  <% if policy(Stage).create? %>
+    <div class="user-email text-right">
+      <%= link_to 'Add Stage...  ', new_stage_path, remote: true %>
+    </div>
+    </br>
+  <% end %>
+
+  <div class="jobs-list-wrapper">
+    <% Stage.order(:created_at).each do |stage| %>
+      <% stages = Stage.all.map{|s| "#stage-list-#{s.id}" if s != stage}.compact %>
+      <%= render partial: 'deal_list', locals: { stage: stage, stages: stages } %>
+    <% end %>
+
+  </div>
+</div>

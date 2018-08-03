@@ -1,0 +1,6 @@
+$('<%="#edit-stage-#{@stage.id}"%>').modal('hide');
+
+// update text for stage heading
+
+$('<%="#list-heading-#{@stage.id}"%>').empty();
+$('<%="#list-heading-#{@stage.id}"%>').append("<%= j render(:partial => 'heading', locals: { stage: @stage }) %>");

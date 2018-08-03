@@ -1,0 +1,46 @@
+<br>
+<div class="float-left">
+  <%= link_to 'New Product', new_product_path, class: 'btn btn-sm btn-success' %>
+</div>
+<div class="table-responsive">
+
+  <table id="products" class="table table-hover table-striped"
+        data-toggle="table"
+        data-sort-name="id"
+        data-sort-order="asc"
+        data-pagination="true"
+        data-page-list = "[8, 25, 50, 100, 200]"
+        data-page-size="8"
+        data-query-params-type="Else"
+        data-show-toggle="true"
+        data-show-columns="true"
+        data-show-export="true"
+        data-filter-control="true"
+        data-search="true">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Hourly rate</th>
+        <th>User</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.title %></td>
+          <td><%= product.hourly_rate %></td>
+          <td><%= product.user.email %></td>
+          <td>
+            <%= link_to 'Show', product, class: 'btn btn-sm btn-default' %>
+            <%= link_to 'Edit', edit_product_path(product), class: 'btn btn-sm btn-success' %>
+            <%= link_to 'Destroy', product, class: 'btn btn-sm btn-default', method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>

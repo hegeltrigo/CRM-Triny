@@ -1,0 +1,50 @@
+<br>
+<div class="float-left">
+  <%= link_to 'New Person', new_person_path, class: 'btn btn-sm btn-success' %>
+</div>
+
+<div class="table-responsive">
+  <table id="people" class="table table-hover table-striped"
+        data-toggle="table"
+        data-sort-name="id"
+        data-sort-order="asc"
+        data-pagination="true"
+        data-page-list = "[8, 25, 50, 100, 200]"
+        data-page-size="8"
+        data-query-params-type="Else"
+        data-show-toggle="true"
+        data-show-columns="true"
+        data-show-export="true"
+        data-filter-control="true"
+        data-search="true">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Email</th>
+      <th>Phone number</th>
+      <th>Company</th>
+      <th>User</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @people.each do |person| %>
+      <tr>
+        <td><%= person.first_name %></td>
+        <td><%= person.last_name %></td>
+        <td><%= person.email %></td>
+        <td><%= person.phone_number %></td>
+        <td><%= person.company_id %></td>
+        <td><%= person.user.email %></td>
+        <td>
+          <%= link_to 'Show', person, class: 'btn btn-sm btn-default' %>
+          <%= link_to 'Edit', edit_person_path(person), class: 'btn btn-sm btn-success' %>
+          <%= link_to 'Destroy', person, class: 'btn btn-sm btn-default', method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

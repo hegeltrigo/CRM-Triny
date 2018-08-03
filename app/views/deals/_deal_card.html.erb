@@ -1,0 +1,46 @@
+<div id='<%="deal-#{deal.id}"%>' class="job-block">
+  <div class="job-name-block">
+    <div class="job-name"><%= deal.title %></div>
+    <div class="job-edit">
+      <%= link_to edit_deal_path(deal, stage_id: deal.stage.id), id: "show-deal-#{deal.id}", remote: true  do %>
+        <i class="fa fa-edit"></i>
+      <% end %>
+    </div>
+    &nbsp;
+    <div class="job-edit">
+      <%= link_to deal_path(deal), method: :delete, remote: true, data: {confirm: "Are you sure?"}  do %>
+        <i class="fa fa-times"></i>
+      <% end %>
+    </div>
+  </div>
+  <div class="user-email">
+    Total Hours: <%= deal.total_hours %></br>
+  </div>
+  <div class="user-email">
+    Total Price: <%= deal.total_price %></br>
+  </div>
+  <div class="user-email">
+    Company: <%= deal.company.try(:name) %></br>
+  </div>
+  <div class="user-email">
+    Services: <%= deal.products.count %></br>
+  </div>
+  <div class="user-email">
+    Notes: <%= deal.notes.count %></br>
+  </div>
+
+  <div class="job-info-block">
+    <div class="job-date"><%= deal.created_at.strftime("%d %b") %></div>
+    <div class="user-email"><%= deal.user.email %></div>
+  </div>
+</div>
+
+
+
+<script>
+  $(document).ready(function(){
+     $('#<%="deal-#{deal.id}"%>').dblclick(function(){
+        jQuery('#<%="show-deal-#{deal.id}"%>')[0].click();
+     });
+  });
+</script>

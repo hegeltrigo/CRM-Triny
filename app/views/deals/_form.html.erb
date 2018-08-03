@@ -1,0 +1,47 @@
+<%= form_with(model: deal, remote: true) do |f| %>
+
+  <div class="modal-body">
+
+      <div class="form-group">
+        <%= f.text_field :title, id: :deal_title, class: 'form-control', placeholder: 'Title', required: 'required' %>
+      </div>
+      <div class="form-group">
+        <%= f.text_field :total_hours, id: :deal_total_hours, class: 'form-control', placeholder: 'Total hours', required: 'required' %>
+      </div>
+      <!-- <div class="form-group">
+        <%= f.text_field :total_price, id: :deal_total_price, class: 'form-control', placeholder: 'Total price', required: '' %>
+      </div> -->
+      <div class="form-group">
+        <%= f.select :company_id, options_for_select(Company.all.map{ |c| [c.name, c.id] }, f.object.company_id), {prompt: 'Select company'}, { class: 'form-control company-select'} %>
+
+      </div>
+      <div class="form-group">
+        Services</br>
+        <%= f.select :product_ids, options_for_select(Product.all.map{ |c| [c.title, c.id] }, f.object.product_ids),
+                                  {},
+                                  { :multiple => true, class: 'basic' }
+                                  %>
+      </div>
+      <%= f.hidden_field :stage_id, id: :deal_stage_id, value: @stage.id %>
+
+
+
+      <div id="notes" class="container bg-grey">
+        <h3>Notes</h3>
+        <%= f.fields_for :notes do |note| %>
+          <%= render 'note_fields', f: note %>
+        <% end %>
+        <div class="links float-left">
+          <%= link_to_add_association 'Add note...', f, :notes %>
+        </div>
+      </br>
+      </div>
+
+  </div>
+  <div class="modal-footer">
+    <div class="actions float-right">
+      <button aria-label="Close" class="btn btn-default" data-dismiss="modal" type="button">Cancel</button>
+      <%= f.submit class: 'btn btn-success' %>
+    </div>
+  </div>
+<% end %>

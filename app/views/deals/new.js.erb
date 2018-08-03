@@ -1,0 +1,9 @@
+console.log('new deal modal');
+
+$('<%= j render partial: "new", :locals => { deal: @deal } %>').on('hidden.bs.modal', function (e) {
+    $(this).remove();
+}).on('shown.bs.modal', function(e) {
+  $( ".company-select" ).select2();
+  $('.basic').multiselect();
+
+}).modal({backdrop: 'static', keyboard: true});

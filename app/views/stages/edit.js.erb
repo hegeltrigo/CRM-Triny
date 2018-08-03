@@ -1,0 +1,5 @@
+console.log('edit stage modal');
+
+$('<%= j render partial: "edit", :locals => { stage: @stage } %>').on('hidden.bs.modal', function (e) {
+    $(this).remove();
+}).modal({backdrop: 'static', keyboard: true});

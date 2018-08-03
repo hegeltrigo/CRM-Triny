@@ -1,0 +1,5 @@
+console.log('create a new deal');
+
+$('#new_deal').modal('hide');
+
+$('<%="#stage-list-#{@deal.stage.id}"%>').append("<%= j render(:partial => 'deal_item', locals: { deal: @deal }) %>");

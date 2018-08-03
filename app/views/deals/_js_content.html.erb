@@ -1,0 +1,102 @@
+<script>
+  $( function() {
+    $( '#<%="stage-list-#{stage.id}"%>' ).sortable({
+      connectWith: <%= raw stages %>,
+      over: function( event, ui ) { //triggered when sortable element hovers sortable list
+        $('<%="#stage-#{stage.id}"%>').css('background-color', 'rgba(0,0,0,.1)')
+      },
+      out: function( event, ui ) { //event is triggered when a sortable item is moved away from a sortable list.
+        $('<%="#stage-#{stage.id}"%>').css('background-color', 'rgba(0,0,0,.0)');
+
+        var stage_id = event.target.id.split('-').pop();
+        var order_list = $(this).sortable('serialize');
+
+        $.ajax({
+             type: "PUT",// GET in place of POST
+             contentType: "application/json; charset=utf-8",
+             url: "/stages/"+ stage_id,
+             data : JSON.stringify({stage: {order_list: order_list }}),
+             dataType: "json",
+             success: function (result) {
+                //do somthing here
+                console.log("success ordered list!!");
+             },
+             error: function (){
+                console.log("something wrong with ordered list!!");
+             }
+        });
+
+      },
+      receive: function( event, ui ) { // event is triggered when an item from a connected sortable list has been dropped into another list
+        $('<%="#stage-#{stage.id}"%>').css('background-color', 'rgba(0,0,0,.0)')
+
+        // from ids
+        var stage_id_from = ui.sender[0].id.split('-').pop();
+        var order_list_from = $("#"+ui.sender[0].id).sortable('serialize');
+
+        // to ids
+        var stage_id_to = event.target.id.split('-').pop();
+        var deal_id_to = ui.item[0].id.split('-').pop();
+        var order_list_to = $(this).sortable('serialize');
+
+        $.ajax({
+             type: "PUT",// GET in place of POST
+             contentType: "application/json; charset=utf-8",
+             url: "/stages/"+ stage_id_from,
+             data : JSON.stringify({stage: {order_list: order_list_from }}),
+             dataType: "json",
+             success: function (result) {
+                //do somthing here
+                console.log("success ordered list from!!");
+
+                $.ajax({
+                     type: "PUT",// GET in place of POST
+                     contentType: "application/json; charset=utf-8",
+                     url: "/stages/"+ stage_id_to,
+                     data : JSON.stringify({stage: {order_list: order_list_to }}),
+                     dataType: "json",
+                     success: function (result) {
+                        console.log("success ordered list to!!");
+                        update_stage(deal_id_to, stage_id_to);
+                     },
+                     error: function (){
+                        console.log("something wrong with ordered list!");
+                     }
+                });
+             },
+             error: function (){
+                console.log("something wrong with ordered list from!!");
+             }
+        });
+
+
+      },
+      revert: 100,
+      start: function( event, ui ) { //event is triggered when sorting starts.
+
+      },
+      stop: function( event, ui ) { //event is triggered when sorting has stopped.
+
+      }
+    });
+  });
+
+  function update_stage(deal_id, stage_id)
+  {
+    $.ajax({
+         type: "PUT",// GET in place of POST
+         contentType: "application/json; charset=utf-8",
+         url: "/deals/"+ deal_id,
+         data : JSON.stringify({deal: {stage_id: stage_id }}),
+         dataType: "json",
+         success: function (result) {
+            //do somthing here
+            console.log("success stage_id!!");
+         },
+         error: function (){
+            console.log("something wrong stage_id !");
+         }
+    });
+  }
+
+</script>

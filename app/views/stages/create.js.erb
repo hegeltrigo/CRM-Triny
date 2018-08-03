@@ -1,0 +1,13 @@
+$('#new_stage').modal('hide');
+
+// update text for stage heading
+
+<% stages = Stage.all.map{|s| "#stage-list-#{s.id}" if s != @stage}.compact %>
+
+$('.jobs-list-wrapper').append("<%= j render(:partial => 'deals/deal_list', locals: { stage: @stage, stages: stages }) %>");
+
+<% Stage.all.each do  |stage| %>
+  <% stages = Stage.all.map{|s| "#stage-list-#{s.id}" if s != stage}.compact %>
+  $('<%="#script-#{stage.id}"%>').empty();
+  $('<%="#script-#{stage.id}"%>').append("<%= j render(:partial => 'deals/js_content', locals: { stage: stage, stages: stages }) %>");
+<% end %>

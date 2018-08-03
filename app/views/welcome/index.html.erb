@@ -1,0 +1,62 @@
+
+<h1>Kat CRM</h1>
+</br></br>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card border-primary">
+        <div class="card-header">Companies</div>
+        <div class="card-body text-center">
+          <h4 class="card-title">Created in this month</h4>
+          <p class="card-text"><%= @companies.count %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card text-white bg-success">
+        <div class="card-header">Deals</div>
+        <div class="card-body text-center">
+          <h4 class="card-title">Created in this month</h4>
+          <p class="card-text flo"><%= @deals.count %></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <hr>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card text-white bg-success">
+        <div class="card-header">People</div>
+        <div class="card-body text-center">
+          <h4 class="card-title">Created in this month</h4>
+          <p class="card-text"><%= @people.count %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card border-primary">
+        <div class="card-header"> Latest Notes</div>
+        <div class="card-body text-center">
+          <!-- <h4 class="card-title">Created in this month</h4> -->
+          <p class="card-text">
+            <% @notes.each do |note| %>
+              <a href="#" class="list-group-item-action">
+                <%= note.title %> - <%= note.description %></br>
+              </a>
+            <% end %>
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

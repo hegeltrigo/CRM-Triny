@@ -1,0 +1,44 @@
+<br>
+<div class="float-left">
+  <%= link_to 'New User', admin_new_users_path, class: 'btn btn-sm btn-success' %>
+</div>
+<div class="table-responsive">
+
+  <table id="users" class="table table-hover table-striped"
+        data-toggle="table"
+        data-sort-name="id"
+        data-sort-order="asc"
+        data-pagination="true"
+        data-page-list = "[8, 25, 50, 100, 200]"
+        data-page-size="8"
+        data-query-params-type="Else"
+        data-show-toggle="true"
+        data-show-columns="true"
+        data-show-export="true"
+        data-filter-control="true"
+        data-search="true">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Role</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= user.role.humanize.capitalize %></td>
+          <td>
+            <%= link_to 'Show', user, class: 'btn btn-sm btn-default' %>
+            <%= link_to 'Edit', admin_edit_user_path(user), class: 'btn btn-sm btn-success' %>
+            <%= link_to 'Destroy', user, class: 'btn btn-sm btn-default', method: :delete, data: { confirm: 'Are you sure?' } if current_user != user %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>
